@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1815" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Ordflöde">
+  <meta name="description" content="Schwedische Vokabeln lernen — minimalistisch und schön.">
+  <title>Ordflöde · Schwedisch lernen</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app" id="app">
+
+    <!-- ============ START ============ -->
+    <section class="screen screen--start is-active" id="screen-start" aria-label="Start">
+      <div class="start-inner">
+        <header class="brand">
+          <div class="brand__mark" aria-hidden="true">Å</div>
+          <h1 class="brand__title">Ordflöde</h1>
+          <p class="brand__tagline">Schwedische Vokabeln</p>
+        </header>
+
+        <div class="levels" role="group" aria-label="Niveau wählen">
+          <button class="level" data-level="A1">
+            <span class="level__tag">A1</span>
+            <span class="level__name">Anfänger</span>
+            <span class="level__meta" data-count="A1">—</span>
+          </button>
+          <button class="level" data-level="A2">
+            <span class="level__tag">A2</span>
+            <span class="level__name">Grundlagen</span>
+            <span class="level__meta" data-count="A2">—</span>
+          </button>
+        </div>
+
+        <p class="start-stat" id="start-stat"></p>
+      </div>
+    </section>
+
+    <!-- ============ TRAINING ============ -->
+    <section class="screen screen--train" id="screen-train" aria-label="Training">
+      <div class="train-top">
+        <button class="icon-btn" id="btn-back" aria-label="Zurück zum Menü">‹</button>
+        <div class="progress" aria-hidden="true"><span class="progress__bar" id="progress-bar"></span></div>
+        <span class="counter" id="counter">0/0</span>
+      </div>
+
+      <div class="card" id="card">
+        <div class="prompt">
+          <span class="prompt__pos" id="prompt-pos"></span>
+          <span class="prompt__word" id="prompt-word">…</span>
+        </div>
+
+        <div class="answer-wrap">
+          <div class="answer" id="answer" aria-live="polite">
+            <span class="answer__text" id="answer-text"></span><span class="caret" id="caret"></span>
+          </div>
+          <div class="answer__reveal" id="answer-reveal"></div>
+          <div class="checkmark" id="checkmark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="train-bottom">
+        <div class="accent-keys" id="accent-keys" aria-label="Schwedische Sonderzeichen">
+          <button class="akey" data-ch="å">å</button>
+          <button class="akey" data-ch="ä">ä</button>
+          <button class="akey" data-ch="ö">ö</button>
+        </div>
+        <button class="ghost-btn" id="btn-reveal">Zeigen</button>
+      </div>
+
+      <!-- hidden real input drives the native keyboard -->
+      <input id="entry" class="entry" type="text"
+             autocomplete="off" autocorrect="off" autocapitalize="off"
+             spellcheck="false" inputmode="text" enterkeyhint="go"
+             aria-label="Antwort eingeben">
+    </section>
+
+    <!-- ============ DONE ============ -->
+    <section class="screen screen--done" id="screen-done" aria-label="Runde beendet">
+      <div class="done-inner">
+        <div class="done__mark" aria-hidden="true">✦</div>
+        <h2 class="done__title">Klart!</h2>
+        <p class="done__stats" id="done-stats"></p>
+        <div class="done-actions">
+          <button class="primary-btn" id="btn-again">Weiter üben</button>
+          <button class="ghost-btn" id="btn-menu">Zum Menü</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="data/a1.js"></script>
+  <script src="data/a2.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
