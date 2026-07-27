@@ -290,9 +290,17 @@
   // Bindet die App-Höhe an die *sichtbare* Viewport-Höhe. Erscheint die
   // iOS-Tastatur, schrumpft der Bereich -> Vokabel & Eingabe bleiben sichtbar.
   const vv = window.visualViewport;
+  const appEl = $('app');
   function syncViewport() {
     const h = vv ? vv.height : window.innerHeight;
     document.documentElement.style.setProperty('--app-h', h + 'px');
+    // iOS „pant" den sichtbaren Viewport beim Fokussieren manchmal nach oben
+    // (offsetTop > 0). Ohne Ausgleich rutscht der obere UI-Teil aus dem Bild.
+    // Wir heften die App um genau diesen Betrag zurück in den sichtbaren Bereich.
+    if (appEl) {
+      const top = vv ? Math.max(0, vv.offsetTop) : 0;
+      appEl.style.transform = top ? 'translateY(' + top + 'px)' : '';
+    }
   }
   if (vv) {
     vv.addEventListener('resize', syncViewport);
