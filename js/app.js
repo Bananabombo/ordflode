@@ -76,9 +76,24 @@
   }
 
   // ---- Screen transitions ----
-  function show(name) {
+  function show(name, instant) {
     Object.values(screens).forEach(s => s.classList.remove('is-active'));
-    screens[name].classList.add('is-active');
+    const el = screens[name];
+    if (instant) {
+      // Sofort sichtbar (ohne Opacity-Fade), damit iOS im selben Tap-Gesture
+      // das Fokussieren zulässt und die Tastatur automatisch einblendet.
+      el.style.transition = 'none';
+      el.classList.add('is-active');
+      void el.offsetWidth;      // Reflow erzwingen -> opacity:1 wird sofort wirksam
+      el.style.transition = '';  // Übergang für spätere Wechsel wiederherstellen
+    } else {
+      el.classList.add('is-active');
+    }
+  }
+
+  function focusEntry() {
+    try { els.entry.focus({ preventScroll: true }); }
+    catch (e) { els.entry.focus(); }
   }
 
   // ---- Start screen ----
@@ -106,10 +121,12 @@
     done = 0;
     correctCount = 0;
     requeuedOnce = new Set();
-    show('train');
-    // Fokus im selben Gesture-Kontext -> iOS blendet Tastatur ein
+    locked = false;
+    // Trainingsscreen SOFORT (ohne Fade) sichtbar schalten und im selben
+    // Tap-Gesture fokussieren -> iOS öffnet die Tastatur automatisch.
     els.entry.value = '';
-    els.entry.focus();
+    show('train', true);
+    focusEntry();
     nextWord(true);
   }
 
