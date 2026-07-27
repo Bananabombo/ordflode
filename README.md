@@ -54,14 +54,16 @@ icons/                  App-Icons (SVG-Quelle + PNG-Größen)
 
 ## Datenquellen & Roadmap
 
-Der aktuelle Wortschatz (A1: 179, A2: 101) ist **handgeprüft**. Für die geplante
-Erweiterung auf den vollen A1+A2-Umfang (~2.800 Wörter) dienen diese offenen
-Ressourcen als Grundlage:
+Der Wortschatz wird aus dem autoritativen **Kelly-Inventar** (Wort, CEFR-Stufe,
+Wortart, Artikel en/ett) plus **handgeprüften deutschen Übersetzungen** erzeugt.
+Der volle A1+A2-Umfang (~2.800 Wörter) wird schrittweise in geprüften Blöcken
+ergänzt (Ziel: präzise, eindeutige Übersetzungen statt automatischer Wörterbuch-
+Abgleich). Die `data/*.js` werden aus diesen Quellen generiert:
 
 - **Swedish Kelly-list** (Universität Göteborg, CC-BY-4.0) — 8.425 schwedische
-  Lemmata mit CEFR-Stufe (A1–C2), Frequenz, Wortart und Artikel.
-- **Deutsches Wiktionary** (CC-BY-SA) — für die deutschen Übersetzungen.
-- **Folkets lexikon** (SV↔EN) — als Kontroll-/Fallback-Quelle.
+  Lemmata mit CEFR-Stufe (A1–C2), Frequenz, Wortart und Artikel. *Liefert das Inventar.*
+- **Deutsche Übersetzungen** — handgeprüft (Qualität vor Vollständigkeit); bei
+  Mehrdeutigkeit wird die passende Bedeutung gewählt bzw. per `alt` zugelassen.
 
 Bei Verwendung dieser Daten sind die jeweiligen Lizenzen/Namensnennungen zu beachten.
 
