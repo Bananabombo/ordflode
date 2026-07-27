@@ -1,7 +1,7 @@
 /* ============================================================
    Ordflöde — Wortschatz A1
    Auto-generiert aus Kelly-Liste (CC-BY-4.0) + geprüften Übersetzungen.
-   548 Wörter · Stand 2026-07-27
+   549 Wörter · Stand 2026-07-27
    Schema: { de, sv, art?, pos, alt? }
    ============================================================ */
 window.VOCAB = window.VOCAB || {};
@@ -497,6 +497,7 @@ window.VOCAB.A1 = [
   { de: 'wo', sv: 'var', pos: 'adv' },
   { de: 'der Vater', sv: 'pappa', art: 'en', pos: 'n', alt: ['far'] },
   { de: 'die Sonne', sv: 'sol', art: 'en', pos: 'n' },
+  { de: 'obgleich', sv: 'fast', pos: 'konj', alt: ['obwohl'] },
   { de: 'schlafen', sv: 'sova', pos: 'v' },
   { de: 'das Mädchen', sv: 'flicka', art: 'en', pos: 'n' },
   { de: 'reich', sv: 'rik', pos: 'adj' },

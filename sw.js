@@ -1,5 +1,5 @@
 /* Ordflöde — Service Worker (App-Shell offline verfügbar) */
-const CACHE = 'ordflode-v5';
+const CACHE = 'ordflode-v6';
 const ASSETS = [
   './',
   './index.html',
