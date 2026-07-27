@@ -25,9 +25,7 @@
     card: $('card'),
     promptWord: $('prompt-word'),
     promptPos: $('prompt-pos'),
-    answer: $('answer'),
-    answerText: $('answer-text'),
-    caret: $('caret'),
+    answer: $('entry'),   // dasselbe Eingabefeld — trägt die Zustands-Klassen
     reveal: $('answer-reveal'),
     checkmark: $('checkmark'),
     progressBar: $('progress-bar'),
@@ -129,7 +127,6 @@
 
     // reset UI
     els.answer.classList.remove('is-correct', 'shake');
-    els.answerText.textContent = '';
     els.reveal.classList.remove('show');
     els.reveal.textContent = '';
     els.checkmark.classList.remove('play');
@@ -145,10 +142,6 @@
       els.card.classList.add('is-entering');
     }
     keepFocus();
-  }
-
-  function render() {
-    els.answerText.textContent = els.entry.value;
   }
 
   function check() {
@@ -199,7 +192,7 @@
       queue.push(current);
       total++;
     }
-    els.answerText.textContent = '';
+    els.entry.value = '';
     els.reveal.textContent = canonical(current);
     els.reveal.classList.add('show');
     els.answer.classList.add('shake');
@@ -241,7 +234,10 @@
     btn.addEventListener('click', () => startSession(btn.dataset.level));
   });
 
-  els.entry.addEventListener('input', () => { render(); check(); });
+  // Während der Auflöse-Animation Tippen blockieren, OHNE readOnly zu setzen
+  // (readOnly kann auf iOS die Tastatur schließen) — so bleibt sie offen.
+  els.entry.addEventListener('beforeinput', (e) => { if (locked) e.preventDefault(); });
+  els.entry.addEventListener('input', check);
   els.entry.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -259,7 +255,7 @@
     k.addEventListener('click', () => {
       if (locked) return;
       els.entry.value += k.dataset.ch;
-      render(); check();
+      check();
       els.entry.focus({ preventScroll: true });
     });
   });
@@ -272,6 +268,28 @@
   $('btn-back').addEventListener('click', () => { els.entry.blur(); show('start'); refreshStart(); });
   $('btn-menu').addEventListener('click', () => { show('start'); refreshStart(); });
   $('btn-again').addEventListener('click', () => startSession(level));
+
+  // ---- Tastatur-bewusste Viewport-Höhe ----
+  // Bindet die App-Höhe an die *sichtbare* Viewport-Höhe. Erscheint die
+  // iOS-Tastatur, schrumpft der Bereich -> Vokabel & Eingabe bleiben sichtbar.
+  const vv = window.visualViewport;
+  function syncViewport() {
+    const h = vv ? vv.height : window.innerHeight;
+    document.documentElement.style.setProperty('--app-h', h + 'px');
+  }
+  if (vv) {
+    vv.addEventListener('resize', syncViewport);
+    vv.addEventListener('scroll', syncViewport);
+  }
+  window.addEventListener('resize', syncViewport);
+  window.addEventListener('orientationchange', () => setTimeout(syncViewport, 250));
+  // Beim Fokus (Tastatur fährt aus) mehrfach nachziehen — deckt Timing-
+  // Eigenheiten der iOS-Tastatur-Animation ab.
+  els.entry.addEventListener('focus', () => {
+    syncViewport();
+    [120, 320, 600].forEach((t) => setTimeout(syncViewport, t));
+  });
+  syncViewport();
 
   // ---- Boot ----
   refreshStart();

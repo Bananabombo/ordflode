@@ -59,13 +59,14 @@
         </div>
 
         <div class="answer-wrap">
-          <div class="answer" id="answer" aria-live="polite">
-            <span class="answer__text" id="answer-text"></span><span class="caret" id="caret"></span>
-          </div>
-          <div class="answer__reveal" id="answer-reveal"></div>
           <div class="checkmark" id="checkmark" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>
           </div>
+          <input id="entry" class="answer-input" type="text"
+                 autocomplete="off" autocorrect="off" autocapitalize="off"
+                 spellcheck="false" inputmode="text" enterkeyhint="go"
+                 aria-label="Schwedische Vokabel eingeben">
+          <div class="answer__reveal" id="answer-reveal"></div>
         </div>
       </div>
 
@@ -77,12 +78,6 @@
         </div>
         <button class="ghost-btn" id="btn-reveal">Zeigen</button>
       </div>
-
-      <!-- hidden real input drives the native keyboard -->
-      <input id="entry" class="entry" type="text"
-             autocomplete="off" autocorrect="off" autocapitalize="off"
-             spellcheck="false" inputmode="text" enterkeyhint="go"
-             aria-label="Antwort eingeben">
     </section>
 
     <!-- ============ DONE ============ -->
